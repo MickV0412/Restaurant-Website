@@ -16,7 +16,7 @@
     <ul class="nav-links">
       <li><a href="index.html" class="nav-link">Home</a></li>
       <li class="nav-dot">•</li>
-      <li><a href="menu.html" class="nav-link">Menu</a></li>
+      <li><a href="menu.php" class="nav-link">Menu</a></li>
       <li class="nav-dot">•</li>
       <li><a href="search.html" class="nav-link">Search</a></li>
       <li class="nav-dot">•</li>

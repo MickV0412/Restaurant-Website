@@ -16,7 +16,7 @@
     <ul class="nav-links">
       <li><a href="index.html" class="nav-link active">Home</a></li>
       <li class="nav-dot">•</li>
-      <li><a href="menu.html" class="nav-link">Menu</a></li>
+      <li><a href="menu.php" class="nav-link">Menu</a></li>
       <li class="nav-dot">•</li>
       <li><a href="search.html" class="nav-link">Search</a></li>
       <li class="nav-dot">•</li>
@@ -31,7 +31,7 @@
     <div class="home-wrap">
       <div class="cat-grid">
 
-        <a href="menu.html" class="cat-card">
+        <a href="menu.php" class="cat-card">
           <div class="cat-icon">
             <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
               <ellipse cx="32" cy="14" rx="22" ry="10"/>
@@ -43,7 +43,7 @@
           <span class="cat-label">Burgers</span>
         </a>
 
-        <a href="menu.html" class="cat-card">
+        <a href="menu.php" class="cat-card">
           <div class="cat-icon">
             <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
               <rect x="10" y="28" width="8" height="24" rx="2"/>
@@ -57,7 +57,7 @@
           <span class="cat-label">Sides</span>
         </a>
 
-        <a href="menu.html" class="cat-card">
+        <a href="menu.php" class="cat-card">
           <div class="cat-icon">
             <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
               <rect x="20" y="4" width="24" height="6" rx="2"/>
