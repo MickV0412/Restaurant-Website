@@ -9,23 +9,23 @@
 </head>
 <body>
   <nav>
-    <a href="index.html" class="nav-brand">
+    <a href="index.php" class="nav-brand">
       <div class="nav-brand-title">The Hatch</div>
       <div class="nav-brand-sub">Admin Panel</div>
     </a>
     <ul class="nav-links">
-      <li><a href="index.html" class="nav-link">← View Site</a></li>
+      <li><a href="index.php" class="nav-link">← View Site</a></li>
     </ul>
-    <a href="login.html" class="nav-cart">Logout</a>
+    <a href="login.php" class="nav-cart">Logout</a>
   </nav>
 
   <div class="admin-layout">
     <aside class="admin-sidebar">
       <div class="admin-sidebar-title">Admin Menu</div>
-      <a href="admin-dashboard.html"    class="admin-nav-link">Dashboard</a>
-      <a href="admin-menu.html"         class="admin-nav-link">Menu Items</a>
-      <a href="admin-messages.html"     class="admin-nav-link">Messages</a>
-      <a href="admin-reservations.html" class="admin-nav-link active">Reservations</a>
+      <a href="admin-dashboard.php"    class="admin-nav-link">Dashboard</a>
+      <a href="admin-menu.php"         class="admin-nav-link">Menu Items</a>
+      <a href="admin-messages.php"     class="admin-nav-link">Messages</a>
+      <a href="admin-reservations.php" class="admin-nav-link active">Reservations</a>
     </aside>
 
     <div class="admin-content">
@@ -39,7 +39,7 @@
           <input class="form-input" type="date" name="date" style="width:200px;">
         </div>
         <button class="btn" type="submit">Filter</button>
-        <a href="admin-reservations.html" class="btn btn-outline">Clear</a>
+        <a href="admin-reservations.php" class="btn btn-outline">Clear</a>
       </form>
 
       <!-- PHP: SELECT * FROM reservations ORDER BY date ASC, time ASC -->

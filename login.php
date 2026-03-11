@@ -9,20 +9,20 @@
 </head>
 <body>
   <nav>
-    <a href="index.html" class="nav-brand">
+    <a href="index.php" class="nav-brand">
       <div class="nav-brand-title">The Hatch</div>
       <div class="nav-brand-sub">Burgers · Nijmegen</div>
     </a>
     <ul class="nav-links">
-      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="index.php" class="nav-link">Home</a></li>
       <li class="nav-dot">•</li>
       <li><a href="menu.php" class="nav-link">Menu</a></li>
       <li class="nav-dot">•</li>
-      <li><a href="search.html" class="nav-link">Search</a></li>
+      <li><a href="search.php" class="nav-link">Search</a></li>
       <li class="nav-dot">•</li>
-      <li><a href="reservation.html" class="nav-link">Reserve</a></li>
+      <li><a href="reservation.php" class="nav-link">Reserve</a></li>
       <li class="nav-dot">•</li>
-      <li><a href="contact.html" class="nav-link">Contact</a></li>
+      <li><a href="contact.php" class="nav-link">Contact</a></li>
     </ul>
     <a href="javascript:history.back()" class="nav-cart">Back</a>
   </nav>

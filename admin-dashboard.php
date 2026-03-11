@@ -9,14 +9,14 @@
 </head>
 <body>
   <nav>
-    <a href="index.html" class="nav-brand">
+    <a href="index.php" class="nav-brand">
       <div class="nav-brand-title">The Hatch</div>
       <div class="nav-brand-sub">Admin Panel</div>
     </a>
     <ul class="nav-links">
-      <li><a href="index.html" class="nav-link">← View Site</a></li>
+      <li><a href="index.php" class="nav-link">← View Site</a></li>
     </ul>
-    <a href="login.html" class="nav-cart">Logout</a>
+    <a href="login.php" class="nav-cart">Logout</a>
   </nav>
 
   <div class="admin-layout">
@@ -24,10 +24,10 @@
     <!-- SIDEBAR -->
     <aside class="admin-sidebar">
       <div class="admin-sidebar-title">Admin Menu</div>
-      <a href="admin-dashboard.html" class="admin-nav-link active">Dashboard</a>
-      <a href="admin-menu.html"      class="admin-nav-link">Menu Items</a>
-      <a href="admin-messages.html"  class="admin-nav-link">Messages</a>
-      <a href="admin-reservations.html" class="admin-nav-link">Reservations</a>
+      <a href="admin-dashboard.php" class="admin-nav-link active">Dashboard</a>
+      <a href="admin-menu.php"      class="admin-nav-link">Menu Items</a>
+      <a href="admin-messages.php"  class="admin-nav-link">Messages</a>
+      <a href="admin-reservations.php" class="admin-nav-link">Reservations</a>
     </aside>
 
     <!-- CONTENT -->
@@ -57,9 +57,9 @@
 
       <!-- QUICK LINKS -->
       <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-        <a href="admin-menu.html"         class="btn">Manage Menu</a>
-        <a href="admin-messages.html"     class="btn btn-outline">View Messages</a>
-        <a href="admin-reservations.html" class="btn btn-outline">View Reservations</a>
+        <a href="admin-menu.php"         class="btn">Manage Menu</a>
+        <a href="admin-messages.php"     class="btn btn-outline">View Messages</a>
+        <a href="admin-reservations.php" class="btn btn-outline">View Reservations</a>
       </div>
     </div>
 
