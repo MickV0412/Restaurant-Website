@@ -8,8 +8,6 @@
     <li class="nav-dot">•</li>
     <li><a href="menu.php" class="nav-link <?= $activePage === 'menu' ? 'active' : '' ?>">Menu</a></li>
     <li class="nav-dot">•</li>
-    <li><a href="search.php" class="nav-link <?= $activePage === 'search' ? 'active' : '' ?>">Search</a></li>
-    <li class="nav-dot">•</li>
     <li><a href="reservation.php" class="nav-link <?= $activePage === 'reservation' ? 'active' : '' ?>">Reserve</a></li>
     <li class="nav-dot">•</li>
     <li><a href="contact.php" class="nav-link <?= $activePage === 'contact' ? 'active' : '' ?>">Contact</a></li>

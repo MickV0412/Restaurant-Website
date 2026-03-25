@@ -18,8 +18,6 @@
       <li class="nav-dot">•</li>
       <li><a href="menu.php" class="nav-link">Menu</a></li>
       <li class="nav-dot">•</li>
-      <li><a href="search.php" class="nav-link">Search</a></li>
-      <li class="nav-dot">•</li>
       <li><a href="reservation.php" class="nav-link">Reserve</a></li>
       <li class="nav-dot">•</li>
       <li><a href="contact.php" class="nav-link">Contact</a></li>

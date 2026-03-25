@@ -22,92 +22,30 @@ $gerechten = $stmt->fetchAll();
   </div>
 
   <main>
-    <div class="order-layout">
+    <div class="search-bar">
+      <input type="text" class="search-input" placeholder="Search the menu...">
+      <button type="button" class="btn">Search</button>
+    </div>
 
-      <div class="items-grid">
-        <?php foreach ($gerechten as $gerecht): ?>
-        <div class="item-card" data-id="<?= $gerecht['id'] ?>" data-naam="<?= htmlspecialchars($gerecht['naam']) ?>" data-prijs="<?= $gerecht['prijs'] ?>">
-          <?php if (!empty($gerecht['foto'])): ?>
-            <img class="item-img" src="<?= htmlspecialchars($gerecht['foto']) ?>" alt="<?= htmlspecialchars($gerecht['naam']) ?>">
-          <?php else: ?>
-            <div class="item-img-placeholder"><span>Image</span></div>
-          <?php endif; ?>
-          <div class="item-info">
-            <div>
-              <span class="item-name-label"><?= htmlspecialchars($gerecht['naam']) ?></span>
-              <span class="item-price">€<?= number_format($gerecht['prijs'], 2) ?></span>
-            </div>
-            <div class="item-qty">
-              <span class="qty-btn qty-min">−</span>
-              <span class="qty-val">0</span>
-              <span class="qty-btn qty-plus">+</span>
-            </div>
-          </div>
-        </div>
-        <?php endforeach; ?>
-
-        <?php if (empty($gerechten)): ?>
-          <p style="color: #aaa;">Geen gerechten gevonden in de database.</p>
+    <div class="items-grid">
+      <?php foreach ($gerechten as $gerecht): ?>
+      <div class="item-card">
+        <?php if (!empty($gerecht['foto'])): ?>
+          <img class="item-img" src="<?= htmlspecialchars($gerecht['foto']) ?>" alt="<?= htmlspecialchars($gerecht['naam']) ?>">
+        <?php else: ?>
+          <div class="item-img-placeholder"><span>Image</span></div>
         <?php endif; ?>
-      </div>
-
-      <!-- CART PANEL -->
-      <div class="cart-panel">
-        <div class="cart-panel-title">Your Order</div>
-        <div id="cart-items"></div>
-        <div class="cart-total-row">
-          <span class="cart-total-label">Total:</span>
-          <span class="cart-total-val" id="cart-total">€0.00</span>
+        <div class="item-info">
+          <span class="item-name-label"><?= htmlspecialchars($gerecht['naam']) ?></span>
+          <span class="item-price">€<?= number_format($gerecht['prijs'], 2) ?></span>
         </div>
-        <div class="btn-order">Place Order</div>
       </div>
+      <?php endforeach; ?>
 
+      <?php if (empty($gerechten)): ?>
+        <p style="color: #aaa;">Geen gerechten gevonden in de database.</p>
+      <?php endif; ?>
     </div>
   </main>
-
-  <script>
-    const cart = {};
-
-    document.querySelectorAll('.item-card').forEach(card => {
-      const id = card.dataset.id;
-      const naam = card.dataset.naam;
-      const prijs = parseFloat(card.dataset.prijs);
-      const qtyVal = card.querySelector('.qty-val');
-
-      card.querySelector('.qty-plus').addEventListener('click', () => {
-        cart[id] = cart[id] || { naam, prijs, qty: 0 };
-        cart[id].qty++;
-        qtyVal.textContent = cart[id].qty;
-        updateCart();
-      });
-
-      card.querySelector('.qty-min').addEventListener('click', () => {
-        if (!cart[id] || cart[id].qty === 0) return;
-        cart[id].qty--;
-        qtyVal.textContent = cart[id].qty;
-        if (cart[id].qty === 0) delete cart[id];
-        updateCart();
-      });
-    });
-
-    function updateCart() {
-      const cartItems = document.getElementById('cart-items');
-      const cartTotal = document.getElementById('cart-total');
-      cartItems.innerHTML = '';
-      let total = 0;
-
-      for (const id in cart) {
-        const item = cart[id];
-        total += item.prijs * item.qty;
-        cartItems.innerHTML += `
-          <div class="cart-row">
-            <span class="cart-item-name">${item.naam} x${item.qty}</span>
-            <span>€${(item.prijs * item.qty).toFixed(2)}</span>
-          </div>`;
-      }
-
-      cartTotal.textContent = '€' + total.toFixed(2);
-    }
-  </script>
 </body>
 </html>
