@@ -22,7 +22,7 @@
       <li class="nav-dot">•</li>
       <li><a href="contact.php" class="nav-link">Contact</a></li>
     </ul>
-    <a href="javascript:history.back()" class="nav-cart">Back</a>
+    <a href="index.php" class="nav-cart">Back</a>
   </nav>
 
   <main>
