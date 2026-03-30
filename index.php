@@ -16,36 +16,21 @@
 
         <a href="menu.php" class="cat-card">
           <div class="cat-icon">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="32" cy="14" rx="22" ry="10"/>
-              <rect x="8" y="26" width="48" height="6" rx="1"/>
-              <rect x="8" y="36" width="48" height="4" rx="1"/>
-              <rect x="10" y="44" width="44" height="6" rx="1"/>
-            </svg>
+            <img src="images/burger.png" alt="Burgers">
           </div>
           <span class="cat-label">Burgers</span>
         </a>
 
         <a href="menu.php" class="cat-card">
           <div class="cat-icon">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-              <rect x="10" y="28" width="8" height="24" rx="2"/>
-              <rect x="22" y="20" width="8" height="32" rx="2"/>
-              <rect x="34" y="24" width="8" height="28" rx="2"/>
-              <rect x="46" y="18" width="8" height="34" rx="2"/>
-              <rect x="6"  y="52" width="52" height="6" rx="2"/>
-              <rect x="8"  y="48" width="48" height="6" rx="2"/>
-            </svg>
+            <img src="images/french-fries.png" alt="Sides">
           </div>
           <span class="cat-label">Sides</span>
         </a>
 
         <a href="menu.php" class="cat-card">
           <div class="cat-icon">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-              <rect x="20" y="4" width="24" height="6" rx="2"/>
-              <path d="M16 10 L20 58 Q32 62 44 58 L48 10 Z"/>
-            </svg>
+            <img src="images/soft-drink.png" alt="Drinks">
           </div>
           <span class="cat-label">Drinks</span>
         </a>

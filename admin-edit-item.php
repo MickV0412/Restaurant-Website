@@ -1,3 +1,28 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['ingelogd'])) {
+    header('Location: login.php');
+    exit;
+}
+
+include 'db.php';
+
+// Haal het item op met het ID uit de URL
+$id   = $_GET['id'];
+$stmt = $pdo->prepare("SELECT * FROM menu_items WHERE id = ?");
+$stmt->execute([$id]);
+$item = $stmt->fetch();
+
+// Sla wijzigingen op als het formulier verstuurd is
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $stmt = $pdo->prepare("UPDATE menu_items SET name=?, price=?, category=?, available=?, description=? WHERE id=?");
+    $stmt->execute([$_POST['name'], $_POST['price'], $_POST['category'], $_POST['available'], $_POST['description'], $id]);
+
+    header('Location: admin-menu.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +41,7 @@
     <ul class="nav-links">
       <li><a href="index.php" class="nav-link">← View Site</a></li>
     </ul>
-    <a href="login.php" class="nav-cart">Logout</a>
+    <a href="logout.php" class="nav-cart">Logout</a>
   </nav>
 
   <div class="admin-layout">
@@ -30,68 +55,47 @@
 
     <div class="admin-content">
       <div class="admin-page-title">Edit Item</div>
-      <!-- PHP: pull item ID from URL (?id=X), SELECT from DB, pre-fill fields below -->
-      <div class="admin-page-sub">Editing: <span style="color:var(--accent);">Placeholder Item</span></div>
+      <div class="admin-page-sub">Editing: <span style="color:var(--accent);"><?php echo $item['name']; ?></span></div>
 
-      <!-- EDIT FORM -->
-      <!-- PHP: POST to admin-edit-item.php with item ID hidden field -->
-      <form class="admin-form" action="admin-edit-item.php" method="POST" enctype="multipart/form-data">
+      <form class="admin-form" action="admin-edit-item.php?id=<?php echo $id; ?>" method="POST">
         <div class="admin-form-title">Item Details</div>
-
-        <!-- PHP: value="<?= $item['id'] ?>" -->
-        <input type="hidden" name="id" value="ITEM_ID_HERE">
 
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Item Name</label>
-            <!-- PHP: value="<?= $item['name'] ?>" -->
-            <input class="form-input" type="text" name="name" value="Placeholder Item" required>
+            <input class="form-input" type="text" name="name" value="<?php echo $item['name']; ?>" required>
           </div>
           <div class="form-group">
             <label class="form-label">Price (€)</label>
-            <!-- PHP: value="<?= $item['price'] ?>" -->
-            <input class="form-input" type="number" step="0.01" name="price" value="0.00" required>
+            <input class="form-input" type="number" step="0.01" name="price" value="<?php echo $item['price']; ?>" required>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Category</label>
-            <!-- PHP: selected="selected" on correct option -->
             <select class="form-select" name="category">
-              <option value="burgers" selected>Burgers</option>
-              <option value="sides">Sides</option>
-              <option value="drinks">Drinks</option>
+              <option value="burgers" <?php if ($item['category'] == 'burgers') echo 'selected'; ?>>Burgers</option>
+              <option value="sides"   <?php if ($item['category'] == 'sides')   echo 'selected'; ?>>Sides</option>
+              <option value="drinks"  <?php if ($item['category'] == 'drinks')  echo 'selected'; ?>>Drinks</option>
             </select>
           </div>
           <div class="form-group">
             <label class="form-label">Availability</label>
             <select class="form-select" name="available">
-              <option value="1" selected>Available</option>
-              <option value="0">Unavailable</option>
+              <option value="1" <?php if ($item['available'] == 1) echo 'selected'; ?>>Available</option>
+              <option value="0" <?php if ($item['available'] == 0) echo 'selected'; ?>>Unavailable</option>
             </select>
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Description</label>
-          <!-- PHP: echo $item['description'] inside textarea -->
-          <textarea class="form-textarea" name="description" style="min-height:80px;">Placeholder description for this item.</textarea>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Current Image</label>
-          <!-- PHP: show current image here -->
-          <div class="table-img" style="width:80px;height:80px;margin-bottom:0.75rem;">
-            <!-- <img src="images/item.jpg" style="width:80px;height:80px;object-fit:cover;"> -->
-            img
-          </div>
-          <label class="form-label">Replace Image (leave blank to keep current)</label>
-          <input class="form-input" type="file" name="image" accept="image/*">
+          <textarea class="form-textarea" name="description" style="min-height:80px;"><?php echo $item['description']; ?></textarea>
         </div>
 
         <div style="display:flex; gap:1rem;">
-          <button class="btn" type="submit" name="action" value="update">Save Changes</button>
+          <button class="btn" type="submit">Save Changes</button>
           <a href="admin-menu.php" class="btn btn-outline">Cancel</a>
         </div>
       </form>

@@ -1,3 +1,21 @@
+<?php
+session_start();
+
+$error = '';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    if ($username == 'admin' && $password == 'admin123') {
+        $_SESSION['ingelogd'] = true;
+        header('Location: admin-dashboard.php');
+        exit;
+    } else {
+        $error = 'Gebruikersnaam of wachtwoord is onjuist.';
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +45,6 @@
 
   <main>
     <div class="login-wrap">
-      <!-- FORM — connect action to login.php -->
       <form class="login-box" action="login.php" method="POST">
         <div class="login-logo">The Hatch</div>
         <div class="login-sub">Admin Login</div>
@@ -41,8 +58,9 @@
           <input class="form-input" type="password" name="password" placeholder="••••••••" required>
         </div>
 
-        <!-- PHP: show error message here if login fails -->
-        <!-- <div style="color:rgba(220,80,60,0.8); font-size:0.75rem; margin-bottom:1rem;">Invalid credentials.</div> -->
+        <?php if ($error != '') { ?>
+          <div style="color:rgba(220,80,60,0.8); font-size:0.75rem; margin-bottom:1rem;"><?php echo $error; ?></div>
+        <?php } ?>
 
         <button class="btn" type="submit" style="width:100%;">Login</button>
       </form>

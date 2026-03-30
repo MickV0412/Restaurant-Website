@@ -1,7 +1,7 @@
-<?php require_once 'db.php'; ?>
 <?php
-$stmt = $pdo->query("SELECT * FROM gerechten ORDER BY categorie, naam");
-$gerechten = $stmt->fetchAll();
+include 'db.php';
+$stmt   = $pdo->query("SELECT * FROM menu_items WHERE available = 1 ORDER BY category, name");
+$items  = $stmt->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,23 +28,19 @@ $gerechten = $stmt->fetchAll();
     </div>
 
     <div class="items-grid">
-      <?php foreach ($gerechten as $gerecht): ?>
+      <?php foreach ($items as $item) { ?>
       <div class="item-card">
-        <?php if (!empty($gerecht['foto'])): ?>
-          <img class="item-img" src="<?= htmlspecialchars($gerecht['foto']) ?>" alt="<?= htmlspecialchars($gerecht['naam']) ?>">
-        <?php else: ?>
-          <div class="item-img-placeholder"><span>Image</span></div>
-        <?php endif; ?>
+        <div class="item-img-placeholder"><span><?php echo $item['category']; ?></span></div>
         <div class="item-info">
-          <span class="item-name-label"><?= htmlspecialchars($gerecht['naam']) ?></span>
-          <span class="item-price">€<?= number_format($gerecht['prijs'], 2) ?></span>
+          <span class="item-name-label"><?php echo $item['name']; ?></span>
+          <span class="item-price">€<?php echo $item['price']; ?></span>
         </div>
       </div>
-      <?php endforeach; ?>
+      <?php } ?>
 
-      <?php if (empty($gerechten)): ?>
-        <p style="color: #aaa;">Geen gerechten gevonden in de database.</p>
-      <?php endif; ?>
+      <?php if (count($items) == 0) { ?>
+        <p style="color: #aaa;">No items on the menu yet.</p>
+      <?php } ?>
     </div>
   </main>
 </body>

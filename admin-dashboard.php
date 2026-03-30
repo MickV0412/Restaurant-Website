@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['ingelogd'])) {
+    header('Location: login.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +24,7 @@
     <ul class="nav-links">
       <li><a href="index.php" class="nav-link">← View Site</a></li>
     </ul>
-    <a href="login.php" class="nav-cart">Logout</a>
+    <a href="logout.php" class="nav-cart">Logout</a>
   </nav>
 
   <div class="admin-layout">

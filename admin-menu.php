@@ -1,3 +1,28 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['ingelogd'])) {
+    header('Location: login.php');
+    exit;
+}
+
+include 'db.php';
+
+// Item toevoegen
+if (isset($_POST['action']) && $_POST['action'] == 'add') {
+    $stmt = $pdo->prepare("INSERT INTO menu_items (name, price, category, available, description) VALUES (?, ?, ?, ?, ?)");
+    $stmt->execute([$_POST['name'], $_POST['price'], $_POST['category'], $_POST['available'], $_POST['description']]);
+}
+
+// Item verwijderen
+if (isset($_POST['action']) && $_POST['action'] == 'delete') {
+    $stmt = $pdo->prepare("DELETE FROM menu_items WHERE id = ?");
+    $stmt->execute([$_POST['id']]);
+}
+
+// Alle items ophalen
+$items = $pdo->query("SELECT * FROM menu_items")->fetchAll();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +41,7 @@
     <ul class="nav-links">
       <li><a href="index.php" class="nav-link">← View Site</a></li>
     </ul>
-    <a href="login.php" class="nav-cart">Logout</a>
+    <a href="logout.php" class="nav-cart">Logout</a>
   </nav>
 
   <div class="admin-layout">
@@ -32,9 +57,8 @@
       <div class="admin-page-title">Menu Items</div>
       <div class="admin-page-sub">Add, edit or remove items from the menu</div>
 
-      <!-- ADD ITEM FORM -->
-      <!-- PHP: POST to admin-menu.php to INSERT into database -->
-      <form class="admin-form" action="admin-menu.php" method="POST" enctype="multipart/form-data" style="margin-bottom:3rem;">
+      <!-- ITEM TOEVOEGEN -->
+      <form class="admin-form" action="admin-menu.php" method="POST" style="margin-bottom:3rem;">
         <div class="admin-form-title">Add New Item</div>
 
         <div class="form-row">
@@ -68,24 +92,16 @@
 
         <div class="form-group">
           <label class="form-label">Description</label>
-          <textarea class="form-textarea" name="description" placeholder="Short description of the item..." style="min-height:80px;"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Image</label>
-          <!-- PHP: move_uploaded_file() to /images/ folder -->
-          <input class="form-input" type="file" name="image" accept="image/*">
+          <textarea class="form-textarea" name="description" placeholder="Short description..." style="min-height:80px;"></textarea>
         </div>
 
         <button class="btn" type="submit" name="action" value="add">Add Item</button>
       </form>
 
-      <!-- EXISTING ITEMS TABLE -->
-      <!-- PHP: SELECT * FROM menu_items and loop through rows here -->
+      <!-- ITEMS TABEL -->
       <table class="admin-table">
         <thead>
           <tr>
-            <th>Image</th>
             <th>Name</th>
             <th>Category</th>
             <th>Price</th>
@@ -95,55 +111,30 @@
         </thead>
         <tbody>
 
-          <!-- PLACEHOLDER ROW — replace with PHP loop -->
+          <?php foreach ($items as $item) { ?>
           <tr>
+            <td><?php echo $item['name']; ?></td>
+            <td><?php echo $item['category']; ?></td>
+            <td>€<?php echo $item['price']; ?></td>
             <td>
-              <div class="table-img">
-                <!-- Replace with: <img src="images/item.jpg" class="table-img-real" alt=""> -->
-                img
-              </div>
+              <?php if ($item['available'] == 1) { ?>
+                <span class="badge badge-available">Available</span>
+              <?php } else { ?>
+                <span class="badge badge-unavailable">Unavailable</span>
+              <?php } ?>
             </td>
-            <td>Placeholder Item</td>
-            <td>Burgers</td>
-            <td>€0.00</td>
-            <td><span class="badge badge-available">Available</span></td>
             <td>
               <div class="action-group">
-                <!-- PHP: link passes item ID to edit page -->
-                <a href="admin-edit-item.php" class="btn btn-outline" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Edit</a>
-                <!-- PHP: POST to admin-menu.php with action=delete&id=X -->
-                <button class="btn btn-danger" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Delete</button>
-              </div>
-            </td>
-          </tr>
+                <a href="admin-edit-item.php?id=<?php echo $item['id']; ?>" class="btn btn-outline" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Edit</a>
 
-          <tr>
-            <td><div class="table-img">img</div></td>
-            <td>Placeholder Item</td>
-            <td>Sides</td>
-            <td>€0.00</td>
-            <td><span class="badge badge-unavailable">Unavailable</span></td>
-            <td>
-              <div class="action-group">
-                <a href="admin-edit-item.php" class="btn btn-outline" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Edit</a>
-                <button class="btn btn-danger" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Delete</button>
+                <form action="admin-menu.php" method="POST" style="display:inline;">
+                  <input type="hidden" name="id" value="<?php echo $item['id']; ?>">
+                  <button class="btn btn-danger" type="submit" name="action" value="delete" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Delete</button>
+                </form>
               </div>
             </td>
           </tr>
-
-          <tr>
-            <td><div class="table-img">img</div></td>
-            <td>Placeholder Item</td>
-            <td>Drinks</td>
-            <td>€0.00</td>
-            <td><span class="badge badge-available">Available</span></td>
-            <td>
-              <div class="action-group">
-                <a href="admin-edit-item.php" class="btn btn-outline" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Edit</a>
-                <button class="btn btn-danger" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Delete</button>
-              </div>
-            </td>
-          </tr>
+          <?php } ?>
 
         </tbody>
       </table>
