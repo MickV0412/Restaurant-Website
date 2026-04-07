@@ -1,7 +1,20 @@
 <?php
 include 'db.php';
-$stmt   = $pdo->query("SELECT * FROM menu_items WHERE available = 1 ORDER BY category, name");
-$items  = $stmt->fetchAll();
+
+$search = '';
+
+if (isset($_GET['search'])) {
+    $search = $_GET['search'];
+}
+
+if ($search != '') {
+    $statement = $pdo->prepare("SELECT * FROM menu_items WHERE available = 1 AND name LIKE ? ORDER BY category, name");
+    $statement->execute(["%$search%"]);
+} else {
+    $statement = $pdo->query("SELECT * FROM menu_items WHERE available = 1 ORDER BY category, name");
+}
+
+$items = $statement->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,10 +35,10 @@ $items  = $stmt->fetchAll();
   </div>
 
   <main>
-    <div class="search-bar">
-      <input type="text" class="search-input" placeholder="Search the menu...">
-      <button type="button" class="btn">Search</button>
-    </div>
+    <form method="GET" action="menu.php" class="search-bar">
+      <input type="text" name="search" class="search-input" placeholder="Search the menu..." value="<?php echo $search; ?>">
+      <button type="submit" class="btn">Search</button>
+    </form>
 
     <div class="items-grid">
       <?php foreach ($items as $item) { ?>
@@ -39,7 +52,7 @@ $items  = $stmt->fetchAll();
       <?php } ?>
 
       <?php if (count($items) == 0) { ?>
-        <p style="color: #aaa;">No items on the menu yet.</p>
+        <p style="color: #aaa;">No items found.</p>
       <?php } ?>
     </div>
   </main>
